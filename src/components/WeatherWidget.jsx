@@ -6,14 +6,15 @@ import {
 } from "@heroicons/react/24/solid";
 
 const WeatherWidget = () => {
-  const [, set] = useState("");
+  const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [unit, setUnit] = useState("celsius");
 
-  const API_KEY = import.meta.env.VITE_WEATHERAPI_API_KEY;
-  const API_URL = import.meta.env.VITE_WEATHERAPI_API_URL;
+  const API_KEY = import.meta.env.DEV.VITE_WEATHERAPI_API_KEY;
+  console.log("API Key:", import.meta.env.DEV.VITE_WEATHERAPI_API_KEY);
+
   const fetchWeather = async (e) => {
     e.preventDefault();
     if (!city) return;
@@ -23,7 +24,9 @@ const WeatherWidget = () => {
 
     try {
       const response = await axios.get(
-        `${API_URL}?key=${API_KEY}&q=${encodeURIComponent(city)}`
+        `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${encodeURIComponent(
+          city
+        )}`
       );
 
       console.log("API Response:", response.data);
