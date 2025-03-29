@@ -61,6 +61,7 @@ const WeatherDashboard = () => {
           latitude: data.location.lat,
           longitude: data.location.lon,
           precipitation: data.current.precip_in,
+          country: data.location.country,
         });
       } catch (err) {
         setError(
@@ -116,7 +117,7 @@ const WeatherDashboard = () => {
           <div className="flex justify-between items-center mb-8">
             <div>
               <h1 className="text-4xl font-bold text-gray-800">
-                {weatherData.name}
+                {weatherData.name} , {weatherData.country}
               </h1>
               <p className="text-gray-500 text-lg">{weatherData.date}</p>
             </div>
