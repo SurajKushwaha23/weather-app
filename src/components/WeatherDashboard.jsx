@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   MagnifyingGlassIcon,
-  SunIcon,
-  MoonIcon,
-  CloudIcon,
+  GlobeAmericasIcon,
   ArrowPathIcon,
   ViewfinderCircleIcon,
   EyeIcon,
@@ -26,7 +24,16 @@ const WeatherDashboard = () => {
 
   const handleCityChange = (e) => {
     setSearchQuery(e.target.value);
-    console.log(searchQuery);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(date);
   };
 
   useEffect(() => {
@@ -44,6 +51,16 @@ const WeatherDashboard = () => {
           temp: data.current.temp_c,
           condition: data.current.condition.text,
           img: data.current.condition.icon,
+          date: formatDate(data.location.localtime),
+          humidity: data.current.humidity,
+          uvIndex: data.current.uv,
+          pressure: data.current.pressure_mb,
+          visibility: data.current.vis_miles,
+          windSpeed: data.current.wind_kph,
+          feelsLike: data.current.heatindex_c,
+          latitude: data.location.lat,
+          longitude: data.location.lon,
+          precipitation: data.current.precip_in,
         });
       } catch (err) {
         setError(
@@ -101,7 +118,7 @@ const WeatherDashboard = () => {
               <h1 className="text-4xl font-bold text-gray-800">
                 {weatherData.name}
               </h1>
-              <p className="text-gray-500 text-lg">Tuesday, 15 March 2025</p>
+              <p className="text-gray-500 text-lg">{weatherData.date}</p>
             </div>
             <div className="flex gap-2">
               <button
@@ -148,17 +165,17 @@ const WeatherDashboard = () => {
               </h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <SunIcon className="w-8 h-8 text-yellow-500" />
+                  <GlobeAmericasIcon className="w-8 h-8 text-blue-700" />
                   <div>
-                    <div className="text-gray-500">Sunrise</div>
-                    <div className="font-semibold">{weatherData.sunrise}</div>
+                    <div className="text-gray-500">Latitude</div>
+                    <div className="font-semibold">{weatherData.latitude}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MoonIcon className="w-8 h-8 text-blue-500" />
+                  <GlobeAmericasIcon className="w-8 h-8 text-yellow-500" />
                   <div>
-                    <div className="text-gray-500">Sunset</div>
-                    <div className="font-semibold">{weatherData.sunset}</div>
+                    <div className="text-gray-500">Longitude</div>
+                    <div className="font-semibold">{weatherData.longitude}</div>
                   </div>
                 </div>
               </div>
@@ -193,7 +210,7 @@ const WeatherDashboard = () => {
                 <h3 className="text-lg font-semibold">Pressure</h3>
               </div>
               <div className="text-3xl font-bold">
-                {weatherData.pressure} hPa
+                {weatherData.pressure} mb
               </div>
             </div>
 
