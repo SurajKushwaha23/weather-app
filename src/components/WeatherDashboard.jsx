@@ -8,6 +8,7 @@ import {
   BeakerIcon,
   XMarkIcon,
   ArrowTrendingUpIcon,
+  AdjustmentsHorizontalIcon,
   ClockIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
@@ -84,7 +85,9 @@ const WeatherDashboard = () => {
         <div className="max-w-6xl mx-auto p-4">
           <div className="relative">
             <div className="flex items-center gap-2">
-              <MagnifyingGlassIcon className="w-6 h-6 text-white cursor-pointer" />
+              <button className="p-3 text-white/50 bg-white/7 rounded-md hover:text-white transition-colors cursor-pointer">
+                <MagnifyingGlassIcon className="w-8 h-8 cursor-pointer" />
+              </button>
               <input
                 type="text"
                 onChange={handleCityChange}
@@ -99,6 +102,9 @@ const WeatherDashboard = () => {
                   <XMarkIcon className="w-6 h-6" />
                 </button>
               )}
+              <button className="p-2 text-white/50 bg-white/7 rounded-md hover:text-white transition-colors cursor-pointer">
+                <AdjustmentsHorizontalIcon className="w-10 h-10 p-1" />
+              </button>
             </div>
           </div>
         </div>
