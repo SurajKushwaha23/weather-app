@@ -34,6 +34,13 @@ const WeatherDashboard = () => {
     }).format(date);
   };
 
+  // Update the temperature display based on unit
+  const displayTemp = unit === "C" ? weatherData?.temp_c : weatherData?.temp_f;
+
+  // Update feels-like temperature
+  const displayFeelsLike =
+    unit === "C" ? weatherData?.feelslike_c : weatherData?.feelslike_f;
+
   const fetchData = async (query) => {
     if (!query.trim()) {
       setError("Please enter a city or country");
@@ -51,8 +58,11 @@ const WeatherDashboard = () => {
       }
       const data = await response.json();
       setWeatherData({
+        temp_c: data.current.temp_c,
+        temp_f: data.current.temp_f,
+        feelslike_c: data.current.feelslike_c,
+        feelslike_f: data.current.feelslike_f,
         name: data.location.name,
-        temp: data.current.temp_c,
         condition: data.current.condition.text,
         img: data.current.condition.icon,
         date: formatDate(data.location.localtime),
@@ -125,19 +135,20 @@ const WeatherDashboard = () => {
       )}
       {weatherData && (
         <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg rounded-b-lg shadow-2xl p-8">
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-800">
+          <div className="md:flex ms:flex-col-reverse md:justify-between md:items-center mb-8">
+            <div className="mb-4 md:mb-0">
+              <h1 className="md:text-4xl text-2xl font-bold text-gray-800">
                 {weatherData.name} , {weatherData.country}
               </h1>
               <p className="text-gray-500 text-lg">{weatherData.date}</p>
             </div>
+            {/* Unit Toggle Buttons - Update to use proper state */}
             <div className="flex gap-2">
               <button
                 onClick={() => setUnit("C")}
                 className={`px-4 py-2 rounded-lg ${
                   unit === "C" ? "bg-blue-500 text-white" : "bg-gray-100"
-                }`}
+                } hover:bg-blue-400 transition-colors`}
               >
                 °C
               </button>
@@ -145,7 +156,7 @@ const WeatherDashboard = () => {
                 onClick={() => setUnit("F")}
                 className={`px-4 py-2 rounded-lg ${
                   unit === "F" ? "bg-blue-500 text-white" : "bg-gray-100"
-                }`}
+                } hover:bg-blue-400 transition-colors`}
               >
                 °F
               </button>
@@ -157,23 +168,27 @@ const WeatherDashboard = () => {
             <div className="col-span-1 lg:col-span-2 bg-white rounded-2xl p-8 ">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-6xl font-bold mb-2">
-                    {weatherData.temp}°{unit}
+                  {/* Main Temperature */}
+                  <div className="md:text-6xl text-3xl font-bold mb-2">
+                    {displayTemp}°{unit}
                   </div>
                   <div className="text-2xl">{weatherData.condition}</div>
                 </div>
                 {/* <CloudIcon className="w-32 h-32 opacity-75" /> */}
-                <img
-                  src={weatherData.img}
-                  className="w-auto h-36"
-                  alt="Weather Icon"
-                />
+                <div className="p-1">
+                  <img
+                    src={weatherData.img}
+                    className="w-auto md:h-36 h-24"
+                    alt="Weather Icon"
+                  />
+                </div>
               </div>
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-6">
+              {/* Feels Like */}
               <h2 className="text-xl font-semibold mb-4">
-                Feels like {weatherData.feelsLike}°
+                Feels like {displayFeelsLike}°
               </h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -281,25 +296,21 @@ const WeatherDashboard = () => {
         </div>
       )}
       {/* Brand footer */}
-      <div className="w-full">
-        <div className=" px-4 py-6">
-          <div className="p-6">
-            <div className="flex flex-col items-center">
-              <span className="text-gray-500 text-5xl font-bold mb-4 flex items-center gap-2">
-                Crafted with
-                <HeartIcon className="w-10 h-10 text-red-400 animate-pulse" />
-                by
-              </span>
-              <a
-                href="mailto:Kushwahasuraj093@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 font-bold text-4xl transition-colors"
-              >
-                Suraj Kushwaha
-              </a>
-            </div>
-          </div>
+      <div className="w-full mt-8">
+        <div className="flex flex-col items-center">
+          <span className="text-gray-500 text-3xl md:text-5xl font-bold mb-4 flex items-center gap-2">
+            Crafted with
+            <HeartIcon className="w-10 h-10 text-red-400 animate-pulse" />
+            by
+          </span>
+          <a
+            href="mailto:Kushwahasuraj093@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 font-bold text-4xl transition-colors"
+          >
+            Suraj Kushwaha
+          </a>
         </div>
       </div>
     </div>
