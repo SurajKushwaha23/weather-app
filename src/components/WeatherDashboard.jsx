@@ -95,7 +95,7 @@ const WeatherDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 p-2 md:p-8 relative">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 p-4 md:p-8 relative">
       <div className="top-0 left-0 w-full bg-white/7 backdrop-blur-lg rounded-t-lg z-50">
         <div className="max-w-6xl mx-auto p-4">
           <div className="relative">
@@ -137,7 +137,7 @@ const WeatherDashboard = () => {
         <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg rounded-b-lg shadow-2xl md:p-8 p-2">
           <div className="md:flex ms:flex-col-reverse md:justify-between md:items-center mb-8">
             <div className="mb-4 md:mb-0">
-              <h1 className="md:text-4xl text-2xl font-bold text-gray-800">
+              <h1 className="md:text-4xl text-3xl font-bold text-gray-800">
                 {weatherData.name} , {weatherData.country}
               </h1>
               <p className="text-gray-500 text-lg">{weatherData.date}</p>
