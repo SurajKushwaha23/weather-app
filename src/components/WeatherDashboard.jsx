@@ -13,6 +13,7 @@ import {
   ExclamationTriangleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 const API_KEY = import.meta.env.VITE_WEATHERAPI_API_KEY;
 const API_URL = import.meta.env.VITE_WEATHERAPI_API_URL;
 
@@ -85,7 +86,7 @@ const WeatherDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 p-8 relative">
-      <div className="top-0 left-0 w-full bg-white/7 backdrop-blur-lg z-50">
+      <div className="top-0 left-0 w-full bg-white/7 backdrop-blur-lg rounded-t-lg z-50">
         <div className="max-w-6xl mx-auto p-4">
           <div className="relative">
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
@@ -115,7 +116,6 @@ const WeatherDashboard = () => {
           </div>
         </div>
       </div>
-
       {loading && (
         <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg shadow-2xl p-8">
           <div className="flex justify-center items-center h-96">
@@ -123,9 +123,8 @@ const WeatherDashboard = () => {
           </div>
         </div>
       )}
-
       {weatherData && (
-        <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg shadow-2xl p-8">
+        <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg rounded-b-lg shadow-2xl p-8">
           <div className="flex justify-between items-center mb-8">
             <div>
               <h1 className="text-4xl font-bold text-gray-800">
@@ -255,7 +254,6 @@ const WeatherDashboard = () => {
           </div>
         </div>
       )}
-
       {error && (
         <div className="mx-auto bg-red-50/90 backdrop-blur-lg shadow-2xl p-8 mb-8">
           <div className="flex items-center gap-4 text-red-600">
@@ -269,7 +267,6 @@ const WeatherDashboard = () => {
           </div>
         </div>
       )}
-
       {!weatherData && !error && (
         <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg shadow-2xl py-16 px-8">
           <div className="flex items-center gap-4 text-red-600">
@@ -283,6 +280,28 @@ const WeatherDashboard = () => {
           </div>
         </div>
       )}
+      {/* Brand footer */}
+      <div className="w-full">
+        <div className=" px-4 py-6">
+          <div className="p-6">
+            <div className="flex flex-col items-center">
+              <span className="text-gray-500 text-5xl font-bold mb-4 flex items-center gap-2">
+                Crafted with
+                <HeartIcon className="w-10 h-10 text-red-400 animate-pulse" />
+                by
+              </span>
+              <a
+                href="mailto:Kushwahasuraj093@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 font-bold text-4xl transition-colors"
+              >
+                Suraj Kushwaha
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
