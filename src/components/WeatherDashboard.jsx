@@ -134,7 +134,7 @@ const WeatherDashboard = () => {
         </div>
       )}
       {weatherData && (
-        <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg rounded-b-lg shadow-2xl md:p-8 p-2">
+        <div className="mx-auto bg-yellow-50/90 backdrop-blur-lg rounded-b-lg shadow-2xl md:p-8 p-6">
           <div className="md:flex ms:flex-col-reverse md:justify-between md:items-center mb-8">
             <div className="mb-4 md:mb-0">
               <h1 className="md:text-4xl text-3xl font-bold text-gray-800">
