@@ -122,7 +122,6 @@ const WeatherDashboard = () => {
         window.open(`https://wa.me/?text=${encodedText} ${url}`);
         break;
       default:
-        // Web Share API for native sharing
         if (navigator.share) {
           navigator
             .share({
@@ -157,7 +156,7 @@ const WeatherDashboard = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for Country or city..."
-                className="w-full text-2xl p-4 bg-transparent text-white placeholder-gray-300 focus:outline-none focus:border-white/60 transition-all"
+                className="w-full md:text-2xl text-xl p-4 bg-transparent text-white placeholder-gray-300 focus:outline-none focus:border-white/60 transition-all"
               />
               {searchQuery && (
                 <button
