@@ -39,14 +39,14 @@ export const VoiceSearch = ({ onSearch }) => {
     <div className="relative">
       <button
         onClick={toggleListening}
-        className={`p-3 rounded-md ${
+        className={`p-4 rounded-full ${
           listening
             ? "bg-red-500 animate-pulse"
             : "bg-white/7 hover:bg-white/10"
         } transition-colors`}
         aria-label={listening ? "Listening..." : "Start voice search"}
       >
-        <MicrophoneIcon className="w-6 h-6 text-white" />
+        <MicrophoneIcon className="w-6 h-6 text-white " />
       </button>
 
       {error && (
