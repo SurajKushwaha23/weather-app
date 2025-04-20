@@ -15,6 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { AQIDisplay } from "../components/AQIDisplay";
+import { VoiceSearch } from "./VoiceSearch";
 const API_KEY = import.meta.env.VITE_WEATHERAPI_API_KEY;
 const API_URL = import.meta.env.VITE_WEATHERAPI_API_URL;
 
@@ -33,6 +34,11 @@ const WeatherDashboard = () => {
       month: "long",
       year: "numeric",
     }).format(date);
+  };
+
+  const handleVoiceSearch = (query) => {
+    setSearchQuery(query);
+    fetchData(query);
   };
 
   // Update the temperature display based on unit
@@ -177,15 +183,18 @@ const WeatherDashboard = () => {
                 placeholder="Search for Country or city..."
                 className="w-full md:text-2xl text-xl p-4 bg-transparent text-white placeholder-gray-300 focus:outline-none focus:border-white/60 transition-all"
               />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  className="p-2 text-white/50 hover:text-white transition-colors"
-                >
-                  <XMarkIcon className="w-6 h-6" />
-                </button>
-              )}
+              <div className="flex items-center gap-2">
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="p-2 text-white/50 hover:text-white transition-colors"
+                  >
+                    <XMarkIcon className="w-6 h-6" />
+                  </button>
+                )}
+                <VoiceSearch onSearch={handleVoiceSearch} />
+              </div>
             </form>
           </div>
         </div>
