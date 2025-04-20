@@ -14,6 +14,7 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import { AQIDisplay } from "../components/AQIDisplay";
 const API_KEY = import.meta.env.VITE_WEATHERAPI_API_KEY;
 const API_URL = import.meta.env.VITE_WEATHERAPI_API_URL;
 
@@ -57,6 +58,7 @@ const WeatherDashboard = () => {
         );
       }
       const data = await response.json();
+      console.log(data.current);
       setWeatherData({
         temp_c: data.current.temp_c,
         temp_f: data.current.temp_f,
@@ -76,6 +78,16 @@ const WeatherDashboard = () => {
         longitude: data.location.lon,
         precipitation: data.current.precip_in,
         country: data.location.country,
+        // Add AQI data
+        aqi: data.current.air_quality?.["us-epa-index"] || null,
+        airQuality: {
+          co: data.current.air_quality?.co || null,
+          no2: data.current.air_quality?.no2 || null,
+          o3: data.current.air_quality?.o3 || null,
+          so2: data.current.air_quality?.so2 || null,
+          pm2_5: data.current.air_quality?.pm2_5 || null,
+          pm10: data.current.air_quality?.pm10 || null,
+        },
       });
     } catch (err) {
       setError(err.message);
@@ -98,11 +110,18 @@ const WeatherDashboard = () => {
   const shareWeather = (platform) => {
     if (!weatherData) return;
 
-    const shareText = `Current weather in ${weatherData.name}, ${weatherData.country}: 
+    const shareText = `Current weather in ${weatherData.name}, ${
+      weatherData.country
+    }: 
     🌡️ Temperature: ${displayTemp}°${unit} (Feels like ${displayFeelsLike}°)
     ☁️ Condition: ${weatherData.condition}
     💧 Humidity: ${weatherData.humidity}%
-    🌬️ Wind: ${weatherData.windSpeed} km/h`;
+    🌬️ Wind: ${weatherData.windSpeed} km/h
+   🌫️ Air Quality: ${
+     weatherData.aqi !== null
+       ? `US AQI ${weatherData.aqi} (${getAQILevel(weatherData.aqi)})`
+       : "Data not available"
+   }`;
 
     const encodedText = encodeURIComponent(shareText);
     const url = encodeURIComponent(window.location.href);
@@ -259,7 +278,13 @@ const WeatherDashboard = () => {
           </div>
 
           {/* Main Weather Card */}
+          <AQIDisplay
+            aqi={weatherData.aqi}
+            airQuality={weatherData.airQuality}
+          />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            {/* Add the AQI component */}
+
             <div className="col-span-1 lg:col-span-2 bg-white rounded-2xl p-8 ">
               <div className="flex items-center justify-between">
                 <div>
